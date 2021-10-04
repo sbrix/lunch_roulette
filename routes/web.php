@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +22,17 @@ Route::get('/restaurant', function () {
     return view('restaurant');
 })->middleware(['auth'])->name('restaurant');
 
+Route::post('/add-restaurant', [\App\Http\Controllers\RestaurantController::class,'store'])->middleware(['auth']);
 
+Route::post('/register-for-lunch', [UserController::class,'registerForLunch'])->middleware(['auth']);
+Route::post('/unregister-for-lunch', [UserController::class,'unregisterForLunch'])->middleware(['auth']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/settings', function () {
+    return view('settings');
+})->middleware(['auth'])->name('settings');
 
 require __DIR__.'/auth.php';
