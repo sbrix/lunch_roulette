@@ -17,7 +17,8 @@ class CreateRestaurantsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('address')->unique();
-            $table->string('coordinates')->unique()->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->timestamps();
         });
     }

@@ -18,11 +18,16 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::create([
             'name'=> $request->name,
             'address'=> $request->address,
-            'coordinates' => $request->coordinates,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
 
         ]);
 
     return redirect('restaurant')->with('success','Restaurant added');
-    //return back();
+
+
+
+
+
     }
 }

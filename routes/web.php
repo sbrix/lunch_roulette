@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RouletteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::post('/add-restaurant', [\App\Http\Controllers\RestaurantController::clas
 
 Route::post('/register-for-lunch', [UserController::class,'registerForLunch'])->middleware(['auth']);
 Route::post('/unregister-for-lunch', [UserController::class,'unregisterForLunch'])->middleware(['auth']);
+Route::get('/admin',[UserController::class,'makeAdmin'])->middleware(['auth']);
+
+Route::post('/update-roulette-settings', [RouletteController::class,'update'])->middleware(['auth']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

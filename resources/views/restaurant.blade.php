@@ -7,30 +7,37 @@
 
     <div class="flex items-center justify-center mt-6">
 
-    <!-- Validation Errors -->
+        <!-- Validation Errors -->
         <div>
             <x-auth-validation-errors class="mt-4 mb-4" :errors="$errors"/>
         </div>
         <form method="POST" action="/add-restaurant" class="">
             @csrf
             <div>
-                <x-label for="name" :value="__('Name')"/>
+                <x-label for="name" :value="__('Name:')"/>
 
                 <x-input id="name" class="block mt-1 max-w-6xl " type="text" name="name" :value="old('name')"
                          required autofocus/>
             </div>
             <div>
-                <x-label for="address" :value="__('Address')"/>
+                <x-label for="address" :value="__('Address:')"/>
 
                 <x-input id="address" class="block mt-1 max-w-6xl" type="text" name="address"
                          :value="old('address')"
                          required/>
             </div>
             <div>
-                <x-label for="coordinates" :value="__('Coordinates')"/>
+                <x-label for="latitude" :value="__('Latitude:')"/>
 
-                <x-input id="coordinates" class="block mt-1 max-w-6xl" type="text" name="coordinates"
-                         :value="old('coordinates')"
+                <x-input id="latitude" class="block mt-1 max-w-6xl" type="text" name="latitude"
+                         :value="old('latitude')"
+                />
+            </div>
+            <div>
+                <x-label for="longitude" :value="__('Longitude:')"/>
+
+                <x-input id="longitude" class="block mt-1 max-w-6xl" type="text" name="longitude"
+                         :value="old('longitude')"
                 />
             </div>
             <div class="flex items-center justify-end mt-4">
