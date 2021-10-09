@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\UserRegisterSuccess;
+use App\Mail\UserRegisterSuccessMail;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -54,7 +54,7 @@ class RegisteredUserController extends Controller
 
 
         //mando una email di conferma della registrazione
-        $registrationEmail = new UserRegisterSuccess();
+        $registrationEmail = new UserRegisterSuccessMail();
         $registrationEmail->build();
         Mail::to($user->email)->send($registrationEmail);
 

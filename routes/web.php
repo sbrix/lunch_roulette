@@ -19,10 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/restaurant', function () {
-    return view('restaurant');
-})->middleware(['auth'])->name('restaurant');
-
+Route::get('/restaurant', function () {return view('restaurant');})->middleware(['auth'])->name('restaurant');
 Route::post('/add-restaurant', [\App\Http\Controllers\RestaurantController::class,'store'])->middleware(['auth']);
 
 Route::post('/register-for-lunch', [UserController::class,'registerForLunch'])->middleware(['auth']);
@@ -30,13 +27,13 @@ Route::post('/unregister-for-lunch', [UserController::class,'unregisterForLunch'
 Route::get('/admin',[UserController::class,'makeAdmin'])->middleware(['auth']);
 
 Route::post('/update-roulette-settings', [RouletteController::class,'update'])->middleware(['auth']);
+Route::get('launch-roulette', [RouletteController::class,'launch'])->middleware(['auth']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth'])->name('dashboard');
 
-Route::get('/settings', function () {
-    return view('settings');
-})->middleware(['auth'])->name('settings');
+Route::get('/settings', function () {return view('settings');})->middleware(['auth'])->name('settings');
+
+Route::get('/confirmation/{event}/{user}', [\App\Http\Controllers\EventController::class,'get'])->middleware(['auth']);
+Route::post('/confirmation/{event}/{user}', [\App\Http\Controllers\EventController::class,'store'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';
