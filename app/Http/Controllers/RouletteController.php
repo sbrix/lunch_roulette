@@ -11,6 +11,7 @@ use Carbon\Traits\Date;
 use Cassandra\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use SebastianBergmann\Comparator\DateTimeComparator;
 
@@ -82,14 +83,20 @@ class RouletteController extends Controller
     {
         //scelgo le persone
         $number_of_participants = config('settings.number_of_participants');
-        $users = User::all();
+        $users = User::get()->where('registered_for_lunch', 'true');
         $users = $users->shuffle();
-
+        if ($users->count() < $number_of_participants){
+            Log::error('Error: not enough participants');
+            abort(500,'Error: not enough participants');
+            //return redirect('dashboard')->with('error','Error: not enough participants');
+        }
         $participants = new Collection();
         for ($i = 0; $i < $number_of_participants; $i++) {
             $participants->push($users[$i]);
 
         }
+
+        //dd($participants);
 
         //scelgo il ristorante
         $restaurant = Restaurant::all()->shuffle()[0];
@@ -116,18 +123,25 @@ class RouletteController extends Controller
         $event->restaurant_id=$restaurant->id;
         $event->save();
 
+
         //creo la lista degli RSVP associati all'evento
+        //mi serve prima costruire la tabella degli inviti per mandare correttamente le email
         foreach ($participants as $participant) {
             RSVP::create([
                 'user_id' => $participant->id ,
                 'event_id' => $event->id,
                 'status' => 'Maybe',
                 ]);
-            //mando gli inviti via email intanto che ciclo sui partecipanti
+
+
+        }
+
+        //mando gli inviti via email intanto
+        foreach ($participants as $participant){
+
             $email = new RSVPMail($event,$participant);
             $email->build();
             Mail::to($participant->email)->send($email);
-
         }
 
 

@@ -27,13 +27,15 @@ Route::post('/unregister-for-lunch', [UserController::class,'unregisterForLunch'
 Route::get('/admin',[UserController::class,'makeAdmin'])->middleware(['auth']);
 
 Route::post('/update-roulette-settings', [RouletteController::class,'update'])->middleware(['auth']);
-Route::get('launch-roulette', [RouletteController::class,'launch'])->middleware(['auth']);
+Route::get('create-event', [RouletteController::class,'launch'])->middleware(['auth']);
 
 Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth'])->name('dashboard');
 
 Route::get('/settings', function () {return view('settings');})->middleware(['auth'])->name('settings');
 
 Route::get('/confirmation/{event}/{user}', [\App\Http\Controllers\EventController::class,'get'])->middleware(['auth']);
-Route::post('/confirmation/{event}/{user}', [\App\Http\Controllers\EventController::class,'store'])->middleware(['auth']);
+Route::get('/confirmation/{event}/{user}/accept', [\App\Http\Controllers\EventController::class,'accept'])->middleware(['auth']);
+Route::get('/confirmation/{event}/{user}/decline', [\App\Http\Controllers\EventController::class,'decline'])->middleware(['auth']);
+Route::get('/calendar/{id}',[\App\Http\Controllers\EventController::class,'getCalendar'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';

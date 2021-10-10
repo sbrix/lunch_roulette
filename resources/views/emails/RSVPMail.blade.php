@@ -18,6 +18,7 @@
 <div>
     <p>You have been invited to the lunch-roulette on <?php
 
+
         $date = $event->event_start;
         echo '<strong>' . $date->format('l j F G:i') . '</strong>';
         ?><br>
@@ -29,14 +30,14 @@
         <br>
         The following people were invited:
     <p><?php
-           $participants = \App\Models\RSVP::get()->where('event_id',$event->id);
-           foreach ($participants as $participant){
-               echo $participant->user->username;
-               if($participant != $participants->last())
-                   echo ', ';
-               else
-                   echo '.';
-           }
+        $participants = \App\Models\RSVP::where('event_id', $event->id)->get();
+        foreach ($participants as $participant) {
+            echo $participant->user->username;
+            if ($participant != $participants->last())
+                echo ', ';
+            else
+                echo '.';
+        }
         ?>
     </p>
     <br>
@@ -48,7 +49,8 @@
     <a href="<?php
     echo 'http://127.0.0.1:8000/confirmation/' . $event->id . '/' . $user->id;
     ?>
-        " class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+        "
+       class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
         Link
 
     </a>
