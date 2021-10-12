@@ -29,6 +29,24 @@
                         </form>
                     @endif
                 </div>
+                <div><strong>Places</strong><br><br>
+
+                    <table class="border-2">
+                        <tr >
+                            <th>Name:</th>
+                            <th>Address:</th>
+                        </tr>
+                        <?php
+                        $restaurants = \App\Models\Restaurant::all();
+                        foreach ($restaurants as $restaurant){
+                            echo '<tr>';
+                            echo '<td>'.$restaurant->name.'</td>';
+                            echo '<td>'.$restaurant->address.'</td>';
+                            echo '</tr>';
+                        }
+                        ?>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

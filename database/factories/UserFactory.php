@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'), //hardcoded 'password'
             'is_admin' => 'false',
-            'registered_for_lunch' => 'false',
+            'registered_for_lunch' => 'true',
             'remember_token' => Str::random(10),
         ];
     }

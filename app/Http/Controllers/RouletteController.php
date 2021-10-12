@@ -144,7 +144,7 @@ class RouletteController extends Controller
             Mail::to($participant->email)->send($email);
         }
 
-
+        return redirect('settings')->with('success','Event created correctly');
 
 
     }

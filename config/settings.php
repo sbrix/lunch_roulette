@@ -1,8 +1,8 @@
 <?php return array (
   'monday' => 'true',
-  'tuesday' => 'false',
+  'tuesday' => 'true',
   'wednesday' => 'true',
-  'thursday' => 'false',
+  'thursday' => 'true',
   'friday' => 'true',
   'break_start_time' => '12:30',
   'break_end_time' => '13:30',
