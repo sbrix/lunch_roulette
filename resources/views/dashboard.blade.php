@@ -38,6 +38,8 @@
                         </tr>
                         <?php
                         $restaurants = \App\Models\Restaurant::all();
+                        $restaurants = $restaurants->sortBy('name');
+
                         foreach ($restaurants as $restaurant){
                             echo '<tr>';
                             echo '<td>'.$restaurant->name.'</td>';
